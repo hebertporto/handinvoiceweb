@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Handinvoice",
+  name: "HandInvoice",
   description: "Effortless Invoicing for Contractors",
   mainNav: [
     {
