@@ -10,23 +10,19 @@ export const siteConfig = {
     },
     {
       title: "Features",
-      href: "/",
+      href: "/#features",
     },
     {
-      title: "Pricing",
-      href: "/",
-    },
-    {
-      title: "Examples",
-      href: "/",
+      title: "Plans",
+      href: "/#plans",
     },
     {
       title: "FAQ",
-      href: "/",
+      href: "/faq",
     },
     {
       title: "Contact",
-      href: "/",
+      href: "/contact",
     },
   ],
   links: {

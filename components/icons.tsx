@@ -1,7 +1,10 @@
 import {
+  ArrowLeftRight,
+  Lock,
   LucideProps,
   Moon,
   SunMedium,
+  Table2,
   Twitter,
   type Icon as LucideIcon,
 } from "lucide-react"
@@ -12,6 +15,58 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,
+  lock: Lock,
+  document: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" x2="8" y1="13" y2="13" />
+      <line x1="16" x2="8" y1="17" y2="17" />
+      <line x1="10" x2="8" y1="9" y2="9" />
+    </svg>
+  ),
+  template: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <rect width="18" height="7" x="3" y="3" rx="1" />
+      <rect width="9" height="7" x="3" y="14" rx="1" />
+      <rect width="5" height="7" x="16" y="14" rx="1" />
+    </svg>
+  ),
+  tableMobile: (props: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <rect width="10" height="14" x="3" y="8" rx="2" />
+      <path d="M5 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2.4" />
+      <path d="M8 18h.01" />
+    </svg>
+  ),
+  arrowLeftRight: ArrowLeftRight,
   logo: (props: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path

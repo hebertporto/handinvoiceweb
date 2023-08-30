@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const testimonialsData = [
   {
     name: "John Doe",
@@ -28,7 +30,7 @@ const testimonialsData = [
 
 function TestimonialsSection() {
   return (
-    <section className="bg-gray-100 py-20">
+    <section className="bg-gray-100 p-10 py-20">
       <div className="container mx-auto mb-16 text-center">
         <h2 className="mb-4 text-4xl font-bold">What Our Users Say</h2>
         <p className="text-xl text-gray-600">
@@ -39,13 +41,13 @@ function TestimonialsSection() {
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
         {testimonialsData.map((testimonial, index) => (
           <div key={index} className="rounded bg-white p-6 shadow-md">
-            <p className="mb-6 italic text-gray-600">
-              "{testimonial.feedback}"
-            </p>
+            <p className="mb-6 italic text-gray-600">{testimonial.feedback}</p>
             <div className="flex items-center">
-              <img
+              <Image
                 src={testimonial.photo}
                 alt={testimonial.name}
+                width={48}
+                height={48}
                 className="mr-4 h-12 w-12 rounded-full"
               />
               <div>

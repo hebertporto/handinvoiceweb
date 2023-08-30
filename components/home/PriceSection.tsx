@@ -3,14 +3,14 @@ const pricingData = [
     title: "Basic",
     price: "9",
     features: ["Feature 1", "Feature 2", "Feature 3"],
-    link: "/signup-basic",
+    link: "/signup",
     recommended: false,
   },
   {
     title: "Pro",
     price: "19",
     features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"],
-    link: "/signup-pro",
+    link: "/signup",
     recommended: true,
   },
   {
@@ -24,14 +24,14 @@ const pricingData = [
       "Feature 5",
       "Feature 6",
     ],
-    link: "/signup-enterprise",
+    link: "/signup",
     recommended: false,
   },
 ]
 
 function PricingSection() {
   return (
-    <section className="py-20">
+    <section className="py-20" id="plans">
       <div className="container mx-auto mb-16 text-center">
         <h2 className="mb-4 text-4xl font-bold">Choose Your Plan</h2>
         <p className="text-xl text-gray-600">

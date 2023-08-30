@@ -1,6 +1,9 @@
+import Image from "next/image"
+import imgSrc from "assets/images/hero-section/hero-handi.png"
+
 const HeroSection = () => {
   return (
-    <div className="bg-gray-100 p-10 md:p-20">
+    <div className="m-10 bg-gray-100 p-10 md:p-20">
       <div className="container mx-auto text-center">
         <h1 className="mb-4 text-4xl font-bold md:text-6xl">
           Effortless Invoicing for Contractors.
@@ -16,11 +19,12 @@ const HeroSection = () => {
           Get Started for Free !
         </a>
       </div>
-      <div className="mt-10">
-        <img
-          src="/path-to-your-image.jpg"
+      <div className="mt-10 flex justify-center">
+        <Image
+          src={imgSrc}
           alt="Mockup of Handinvoice"
-          className="mx-auto"
+          width={500}
+          height={500}
         />
       </div>
     </div>

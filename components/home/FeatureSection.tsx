@@ -2,29 +2,29 @@ import { Icons } from "@/components/icons"
 
 const featureData = [
   {
-    icon: Icons.logo, // Replace with your icon component
+    icon: Icons.document,
     title: "Simplified Invoicing",
     description:
       "Create invoices with a user-friendly interface tailored for contractors.",
   },
   {
-    icon: Icons.logo,
+    icon: Icons.template,
     title: "Invoice Templates",
     description:
       "Choose from a variety of contractor-focused templates to suit your business.",
   },
   {
-    icon: Icons.logo,
+    icon: Icons.arrowLeftRight,
     title: "Recurring Invoices",
     description: "Set up repeat invoices for regular clients.",
   },
   {
-    icon: Icons.logo,
+    icon: Icons.tableMobile,
     title: "Mobile-Friendly",
     description: "Manage and send invoices on the go, right from your phone.",
   },
   {
-    icon: Icons.logo,
+    icon: Icons.lock,
     title: "Secure",
     description: "Your data is protected with industry-standard encryption.",
   },
@@ -32,7 +32,7 @@ const featureData = [
 
 function FeaturesSection() {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-20" id="features">
       <div className="container mx-auto mb-10 text-center">
         <h2 className="mb-4 text-4xl font-bold">Features</h2>
         <p className="text-xl text-gray-600">

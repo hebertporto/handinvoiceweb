@@ -44,6 +44,12 @@ export function SiteHeader() {
               </div>
             </Link> */}
             {/* <ThemeToggle /> */}
+            <a
+              href="/signin"
+              className="rounded-full bg-blue-500 px-6 py-2 font-bold text-white transition duration-300 hover:bg-blue-600"
+            >
+              Login
+            </a>
           </nav>
         </div>
       </div>

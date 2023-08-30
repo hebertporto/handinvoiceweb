@@ -24,7 +24,7 @@ export function MainNav({ items }: MainNavProps) {
           {items.map(
             (item) =>
               item.href && (
-                <Link key={item.title} href={item.href}>
+                <Link key={item.title} href={item.href} scroll>
                   <div
                     className={cn(
                       "hover:text-active-color flex cursor-pointer items-center text-sm font-medium text-muted-foreground transition",
