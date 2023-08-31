@@ -3,10 +3,10 @@ import { DictionaryEntry } from "@/dictionaries/content"
 import imgSrc from "assets/images/hero-section/hero-handi.png"
 
 interface HeroSectionProps {
-  t?: DictionaryEntry
+  t: DictionaryEntry
 }
 
-const HeroSection = async ({ t }: HeroSectionProps) => {
+const HeroSection = ({ t }: HeroSectionProps) => {
   return (
     <div className="m-10 bg-gray-100 p-10 md:p-20">
       <div className="container mx-auto text-center">
