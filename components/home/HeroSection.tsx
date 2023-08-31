@@ -3,7 +3,7 @@ import { DictionaryEntry } from "@/dictionaries/content"
 import imgSrc from "assets/images/hero-section/hero-handi.png"
 
 interface HeroSectionProps {
-  t: DictionaryEntry
+  t?: DictionaryEntry
 }
 
 const HeroSection = async ({ t }: HeroSectionProps) => {
