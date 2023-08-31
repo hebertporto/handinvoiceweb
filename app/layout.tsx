@@ -1,3 +1,5 @@
+import { defaultLocale } from "@/middleware"
+
 import "@/styles/globals.css"
 import { Metadata } from "next"
 
@@ -23,12 +25,13 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
+  params?: Record<string, string>
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang={params?.lang ?? defaultLocale} suppressHydrationWarning>
         <head />
         <body
           className={cn(
