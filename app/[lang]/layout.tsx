@@ -1,4 +1,4 @@
-import { defaultLocale } from "@/middleware"
+import { Locale, i18n } from "@/i18n.config"
 
 import "@/styles/globals.css"
 import { Metadata } from "next"
@@ -25,29 +25,31 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
-  params?: Record<string, string>
+  params: { lang: Locale }
+}
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
-    <>
-      <html lang={params?.lang ?? defaultLocale} suppressHydrationWarning>
-        <head />
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html lang={params.lang} suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader lang={params.lang} />
+            <div className="flex-1">{children}</div>
+          </div>
+          <TailwindIndicator />
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }

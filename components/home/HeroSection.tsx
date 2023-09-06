@@ -10,7 +10,7 @@ const HeroSection = ({ t }: HeroSectionProps) => {
   return (
     <div className="m-10 bg-gray-100 p-10 md:p-20">
       <div className="container mx-auto text-center">
-        {/* <h1 className="mb-4 text-4xl font-bold md:text-6xl">{t.homeHeader}</h1> */}
+        <h1 className="mb-4 text-4xl font-bold md:text-6xl">{t.homeHeader}</h1>
         <p className="mb-8 text-xl md:text-2xl">
           Generate, manage, and send professional invoices with just a few
           clicks.
