@@ -4,7 +4,6 @@ import { Locale } from "@/i18n.config"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
-import { getDictionary } from "@/lib/dictionary"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
@@ -13,8 +12,7 @@ interface MainNavProps {
   lang: Locale
 }
 
-export async function MainNav({ items, lang }: MainNavProps) {
-  const { navigation } = await getDictionary(lang)
+export function MainNav({ items, lang }: MainNavProps) {
   return (
     <nav className="flex gap-6 md:gap-10" aria-label="Main navigation">
       <Link href="/">
