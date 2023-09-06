@@ -2,5 +2,14 @@
   "homeHeader": "Facturación sin esfuerzo para contratistas.",
   "homeContent": "Beinvenidos a mi casa.",
   "aboutHeader": "Sobre Yo",
-  "aboutContent": "Aqui tenemos un poco informacion sobre yo. Hablo espanol tambien."
+  "aboutContent": "Aqui tenemos un poco informacion sobre yo. Hablo espanol tambien.",
+  "page": {
+    "home": {
+      "hero": {
+        "title": "Facturación simplificada para contratistas.",
+        "subTitle": "Crea, administra y envía facturas profesionales de manera rápida y sencilla.",
+        "button": "¡Inicia ahora sin costo!"
+      }
+    }
+  }
 }

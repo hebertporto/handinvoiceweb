@@ -1,0 +1,15 @@
+{
+  "homeHeader": "Faturamento sem esforço para contratados.",
+  "homeContent": "Bem vindos a minha casa.",
+  "aboutHeader": "Sobre Você",
+  "aboutContent": "Aqui temos um conteúdo BR.",
+  "page": {
+    "home": {
+      "hero": {
+        "title": "Faturamento simplificado para empreiteiros.",
+        "subTitle": "Crie, organize e envie faturas profissionais de forma ágil e intuitiva.",
+        "button": "Inicie agora gratuitamente!"
+      }
+    }
+  }
+}

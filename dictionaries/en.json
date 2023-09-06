@@ -2,5 +2,14 @@
   "homeHeader": "Effortless Invoicing for Contractors.",
   "homeContent": "Welcome to my home.",
   "aboutHeader": "About Me",
-  "aboutContent": "Here is some information about me. English is my primary language."
+  "aboutContent": "Here is some information about me. English is my primary language.",
+  "page": {
+    "home": {
+      "hero": {
+        "title": "Effortless Invoicing for Contractors.",
+        "subTitle": "Generate, manage, and send professional invoices with just a few clicks.",
+        "button": "Get Started for Free!"
+      }
+    }
+  }
 }
