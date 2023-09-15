@@ -16,6 +16,10 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.4.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "jspdf": "^2.5.1",
