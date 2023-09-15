@@ -1,7 +1,6 @@
 import { Locale, i18n } from "@/i18n.config"
 
 import "@/styles/globals.css"
-import { Session } from "inspector"
 import { Metadata } from "next"
 import { getServerSession } from "next-auth"
 
@@ -44,10 +43,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} suppressHydrationWarning>
       <body
-        className={cn(
-          "bg-background min-h-screen font-sans antialiased",
-          fontSans.variable
-        )}
+        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
       >
         <SessionProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
