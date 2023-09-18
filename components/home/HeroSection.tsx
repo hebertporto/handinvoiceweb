@@ -12,7 +12,7 @@ const HeroSection = ({ t }: HeroSectionProps) => {
         <h1 className="mb-4 text-4xl font-bold md:text-6xl">{t.title}</h1>
         <p className="mb-8 text-xl md:text-2xl">{t.subTitle}</p>
         <a
-          href="/generate"
+          href="/dashboard"
           className="rounded-full bg-blue-500 px-6 py-2 font-bold text-white transition duration-300 hover:bg-blue-600"
         >
           {t.button}

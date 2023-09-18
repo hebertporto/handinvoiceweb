@@ -26,7 +26,7 @@ export function MainNav({ lang }: MainNavProps) {
               <Link key={item.title} href={`/${lang}${item.href}`} scroll>
                 <div
                   className={cn(
-                    "hover:text-active-color flex cursor-pointer items-center text-sm font-medium text-muted-foreground transition"
+                    "hover:text-active-color text-muted-foreground flex cursor-pointer items-center text-sm font-medium transition"
                   )}
                 >
                   {item.title}

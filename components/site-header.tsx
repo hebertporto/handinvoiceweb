@@ -1,4 +1,7 @@
+"use client"
+
 import { Locale } from "@/i18n.config"
+import { useUserPreferenceStore } from "@/store/userPreferences"
 
 import { MainNav } from "@/components/main-nav"
 
