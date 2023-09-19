@@ -1,14 +1,14 @@
-'use client'
+"use client"
 
-import { Fragment } from 'react'
-import Link from 'next/link'
-import { Popover, Transition } from '@headlessui/react'
-import clsx from 'clsx'
+import { Fragment } from "react"
+import Link from "next/link"
+import { Popover, Transition } from "@headlessui/react"
+import clsx from "clsx"
 
-import { Button } from '@/components/Button'
-import { Container } from '@/components/Container'
-import { Logo } from '@/components/Logo'
-import { NavLink } from '@/components/NavLink'
+import { Button } from "@/components/Button"
+import { Container } from "@/components/Container"
+import { Logo } from "@/components/Logo"
+import { NavLink } from "@/components/NavLink"
 
 function MobileNavLink({
   href,
@@ -36,15 +36,15 @@ function MobileNavIcon({ open }: { open: boolean }) {
       <path
         d="M0 1H14M0 7H14M0 13H14"
         className={clsx(
-          'origin-center transition',
-          open && 'scale-90 opacity-0',
+          "origin-center transition",
+          open && "scale-90 opacity-0"
         )}
       />
       <path
         d="M2 2L12 12M12 2L2 12"
         className={clsx(
-          'origin-center transition',
-          !open && 'scale-90 opacity-0',
+          "origin-center transition",
+          !open && "scale-90 opacity-0"
         )}
       />
     </svg>
@@ -97,7 +97,11 @@ function MobileNavigation() {
   )
 }
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  lang: string
+}
+
+export function SiteHeader({ lang }: SiteHeaderProps) {
   return (
     <header className="py-10">
       <Container>

@@ -44,6 +44,7 @@ export default async function RootLayout({
     <html lang={params.lang} suppressHydrationWarning>
       <body
         className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+        suppressHydrationWarning
       >
         <SessionProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
