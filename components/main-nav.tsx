@@ -13,7 +13,7 @@ interface MainNavProps {
 export function MainNav({ lang }: MainNavProps) {
   return (
     <nav className="flex gap-6 md:gap-10" aria-label="Main navigation">
-      <Link href="/">
+      <Link href="/en">
         <div className="flex cursor-pointer items-center space-x-2">
           <Icons.logo className="h-6 w-6" />
           <span className="inline-block font-bold">{siteConfig.name}</span>
@@ -26,7 +26,7 @@ export function MainNav({ lang }: MainNavProps) {
               <Link key={item.title} href={`/${lang}${item.href}`} scroll>
                 <div
                   className={cn(
-                    "hover:text-active-color text-muted-foreground flex cursor-pointer items-center text-sm font-medium transition"
+                    "hover:text-active-color flex cursor-pointer items-center text-sm font-medium text-muted-foreground transition"
                   )}
                 >
                   {item.title}

@@ -1,7 +1,7 @@
-export default function SignUpPage() {
+export default function LoginPage() {
   return (
     <section className="container grid items-center pb-8">
-      <h1>Sign Up Page</h1>
+      <h1>Login</h1>
     </section>
   )
 }

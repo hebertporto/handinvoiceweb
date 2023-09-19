@@ -1,8 +1,7 @@
 import { create } from "zustand"
 
 const useUserPreferenceStore = create((set) => ({
-  language: "es", // default language
-
+  language: "es",
   setLanguage: (lang: string) => set({ language: lang }),
 }))
 

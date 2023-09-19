@@ -1,4 +1,11 @@
-export default function DashboardPage() {
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+
+export default async function DashboardPage() {
+  const session = await getServerSession()
+  if (!session || !session.user) {
+    redirect("/api/auth/signin")
+  }
   return (
     <section className="container mx-auto grid items-center gap-6 px-4 pb-8 pt-6 md:py-10">
       <div className="flex items-center justify-between">

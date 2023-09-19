@@ -4,7 +4,10 @@ import { Fragment } from "react"
 import Link from "next/link"
 import { Popover, Transition } from "@headlessui/react"
 import clsx from "clsx"
+import { getServerSession } from "next-auth"
+import { signIn, signOut, useSession } from "next-auth/react"
 
+import { siteConfig } from "@/config/site"
 import { Button } from "@/components/Button"
 import { Container } from "@/components/Container"
 import { Logo } from "@/components/Logo"
@@ -52,6 +55,8 @@ function MobileNavIcon({ open }: { open: boolean }) {
 }
 
 function MobileNavigation() {
+  const { data: session } = useSession()
+
   return (
     <Popover>
       <Popover.Button
@@ -85,9 +90,16 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-gray-900 shadow-xl ring-1 ring-gray-900/5"
           >
-            <MobileNavLink href="#features">Features</MobileNavLink>
-            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
-            <MobileNavLink href="#pricing">Pricing</MobileNavLink>
+            {siteConfig.mainNav.map((item) => {
+              if (item.protected && !session) return null
+              if (item.href) {
+                return (
+                  <MobileNavLink key={item.title} href={item.href}>
+                    {item.title}
+                  </MobileNavLink>
+                )
+              }
+            })}
             <hr className="m-2 border-gray-300/40" />
             <MobileNavLink href="/login">Sign in</MobileNavLink>
           </Popover.Panel>
@@ -99,9 +111,13 @@ function MobileNavigation() {
 
 interface SiteHeaderProps {
   lang: string
+  session: any
 }
 
 export function SiteHeader({ lang }: SiteHeaderProps) {
+  const { data: session } = useSession()
+  console.log("-", session)
+
   return (
     <header className="py-10">
       <Container>
@@ -111,24 +127,40 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
               <Logo className="h-10 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
-              <NavLink href="#features">Features</NavLink>
-              <NavLink href="#testimonials">Testimonials</NavLink>
-              <NavLink href="#pricing">Pricing</NavLink>
+              {siteConfig.mainNav.map((item) => {
+                if (item.protected && !session) return null
+                if (item.href) {
+                  return (
+                    <NavLink key={item.title} href={item.href}>
+                      {item.title}
+                    </NavLink>
+                  )
+                }
+              })}
             </div>
           </div>
-          <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block">
-              <NavLink href="/login">Sign in</NavLink>
+          {session ? (
+            <div className="flex items-center gap-x-5 md:gap-x-8">
+              <span>Hi {session.user?.name}!</span>
+              <Button onClick={() => signOut()} color="blue">
+                <span>Logout</span>
+              </Button>
             </div>
-            <Button href="/register" color="blue">
-              <span>
-                Get started <span className="hidden lg:inline">today</span>
-              </span>
-            </Button>
-            <div className="-mr-1 md:hidden">
-              <MobileNavigation />
+          ) : (
+            <div className="flex items-center gap-x-5 md:gap-x-8">
+              <div className="hidden md:block">
+                <Button onClick={() => signIn()}>Sign in</Button>
+              </div>
+              <Button onClick={() => signIn()} color="blue">
+                <span>
+                  Get started <span className="hidden lg:inline">today</span>
+                </span>
+              </Button>
+              <div className="-mr-1 md:hidden">
+                <MobileNavigation />
+              </div>
             </div>
-          </div>
+          )}
         </nav>
       </Container>
     </header>

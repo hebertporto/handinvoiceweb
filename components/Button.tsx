@@ -57,6 +57,7 @@ export function Button({
   } else {
     // TODO: fix props for buttons
     const { href, ...buttonProps } = props
-    return <button type={type} className={combinedClass} />
+    // @ts-ignore
+    return <button type={type} className={combinedClass} {...buttonProps} />
   }
 }

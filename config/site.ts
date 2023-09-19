@@ -7,22 +7,32 @@ export const siteConfig = {
     {
       title: "Home",
       href: "/",
+      protected: false,
     },
     {
       title: "Features",
       href: "/#features",
+      protected: false,
     },
     {
       title: "Plans",
       href: "/#plans",
+      protected: false,
     },
     {
       title: "FAQ",
       href: "/faq",
+      protected: false,
     },
     {
       title: "Contact",
       href: "/contact",
+      protected: false,
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      protected: true,
     },
   ],
   links: {

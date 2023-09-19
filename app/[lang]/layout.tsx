@@ -40,6 +40,7 @@ export default async function RootLayout({
   params,
 }: RootLayoutProps) {
   const session = await getServerSession()
+
   return (
     <html lang={params.lang} suppressHydrationWarning>
       <body
@@ -49,7 +50,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <main className="relative flex min-h-screen flex-col">
-              <SiteHeader lang={params.lang} />
+              <SiteHeader lang={params.lang} session={session} />
               <div className="flex-1">{children}</div>
             </main>
             <TailwindIndicator />
