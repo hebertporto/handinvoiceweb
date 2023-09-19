@@ -116,7 +116,6 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ lang }: SiteHeaderProps) {
   const { data: session } = useSession()
-  console.log("-", session)
 
   return (
     <header className="py-10">

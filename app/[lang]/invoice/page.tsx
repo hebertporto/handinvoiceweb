@@ -1,12 +1,12 @@
 "use client"
 
 import { redirect } from "next/navigation"
-import { getServerSession } from "next-auth"
+import { useSession } from "next-auth/react"
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
 
-import { generateStyledInvoice, mockedInvoiceData } from "./utils/pdfManager"
+import { generateStyledInvoice } from "./utils/pdfManager"
 
 type ItemInput = {
   description: string
@@ -26,9 +26,11 @@ type Inputs = {
   logo: FileList
 }
 
-export default async function DashboardPage() {
-  const session = await getServerSession()
-
+export default function InvoicePage() {
+  const { data: session } = useSession()
+  if (!session || !session.user) {
+    redirect("/api/auth/signin")
+  }
   const {
     register,
     handleSubmit,
@@ -43,10 +45,8 @@ export default async function DashboardPage() {
   })
 
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
-    console.log(data)
     generateStyledInvoice(data)
     e?.preventDefault()
-    console.log("alow")
   }
   const watchedFields = watch([
     "date",
@@ -59,10 +59,6 @@ export default async function DashboardPage() {
     "paymentDetails",
     "logo",
   ])
-
-  if (!session || !session.user) {
-    redirect("/api/auth/signin")
-  }
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
