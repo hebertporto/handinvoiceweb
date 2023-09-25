@@ -1,8 +1,8 @@
-import { Locale, i18n } from "@/i18n.config"
+import { i18n, Locale } from "@/i18n.config"
 
 import "@/styles/globals.css"
+
 import { Metadata } from "next"
-import { getServerSession } from "next-auth"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -10,8 +10,6 @@ import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-
-import SessionProvider from "./components/SessionProvider"
 
 export const metadata: Metadata = {
   title: {
@@ -39,23 +37,19 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  const session = await getServerSession()
-
   return (
     <html lang={params.lang} suppressHydrationWarning>
       <body
         className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
         suppressHydrationWarning
       >
-        <SessionProvider session={session}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <main className="relative flex min-h-screen flex-col">
-              <SiteHeader lang={params.lang} session={session} />
-              <div className="flex-1">{children}</div>
-            </main>
-            <TailwindIndicator />
-          </ThemeProvider>
-        </SessionProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <main className="relative flex min-h-screen flex-col">
+            <SiteHeader lang={params.lang} />
+            <div className="flex-1">{children}</div>
+          </main>
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   )

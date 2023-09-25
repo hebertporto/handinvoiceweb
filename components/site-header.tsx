@@ -4,8 +4,6 @@ import { Fragment } from "react"
 import Link from "next/link"
 import { Popover, Transition } from "@headlessui/react"
 import clsx from "clsx"
-import { getServerSession } from "next-auth"
-import { signIn, signOut, useSession } from "next-auth/react"
 
 import { siteConfig } from "@/config/site"
 import { Button } from "@/components/Button"
@@ -55,8 +53,6 @@ function MobileNavIcon({ open }: { open: boolean }) {
 }
 
 function MobileNavigation() {
-  const { data: session } = useSession()
-
   return (
     <Popover>
       <Popover.Button
@@ -91,7 +87,7 @@ function MobileNavigation() {
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-gray-900 shadow-xl ring-1 ring-gray-900/5"
           >
             {siteConfig.mainNav.map((item) => {
-              if (item.protected && !session) return null
+              // if (item.protected && !session) return null
               if (item.href) {
                 return (
                   <MobileNavLink key={item.title} href={item.href}>
@@ -111,12 +107,9 @@ function MobileNavigation() {
 
 interface SiteHeaderProps {
   lang: string
-  session: any
 }
 
 export function SiteHeader({ lang }: SiteHeaderProps) {
-  const { data: session } = useSession()
-
   return (
     <header className="py-10">
       <Container>
@@ -127,7 +120,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               {siteConfig.mainNav.map((item) => {
-                if (item.protected && !session) return null
+                // if (item.protected && !session) return null
                 if (item.href) {
                   return (
                     <NavLink key={item.title} href={item.href}>
@@ -138,7 +131,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
               })}
             </div>
           </div>
-          {session ? (
+          {/* {session ? (
             <div className="flex items-center gap-x-5 md:gap-x-8">
               <span>Hi {session.user?.name}!</span>
               <Button onClick={() => signOut()} color="blue">
@@ -159,7 +152,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                 <MobileNavigation />
               </div>
             </div>
-          )}
+          )} */}
         </nav>
       </Container>
     </header>
