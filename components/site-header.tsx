@@ -1,16 +1,18 @@
 "use client"
 
+import { Fragment } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useAuthContext } from "@/context/AuthContext"
 import { Menu, Popover, Transition } from "@headlessui/react"
 import clsx from "clsx"
-import Link from "next/link"
-import { Fragment } from "react"
 
+import { siteConfig } from "@/config/site"
 import { Button } from "@/components/Button"
 import { Container } from "@/components/Container"
 import { Logo } from "@/components/Logo"
 import { NavLink } from "@/components/NavLink"
-import { siteConfig } from "@/config/site"
-import Image from 'next/image'
 
 function MobileNavLink({
   href,
@@ -27,7 +29,7 @@ function MobileNavLink({
 }
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ")
 }
 
 function MobileNavIcon({ open }: { open: boolean }) {
@@ -59,6 +61,8 @@ function MobileNavIcon({ open }: { open: boolean }) {
 
 // TODO: Create the mobile nav interface
 function MobileNavigation() {
+  const { user } = useAuthContext()
+
   return (
     <Popover>
       <Popover.Button
@@ -93,14 +97,14 @@ function MobileNavigation() {
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-gray-900 shadow-xl ring-1 ring-gray-900/5"
           >
             {siteConfig.mainNav.map((item) => {
-              if (item.protected && session) {
+              if (item.protected && user) {
                 return (
                   <MobileNavLink key={item.title} href={item.href}>
                     {item.title}
                   </MobileNavLink>
                 )
               }
-              if (!item.protected && !session) {
+              if (!item.protected && !user) {
                 return (
                   <MobileNavLink key={item.title} href={item.href}>
                     {item.title}
@@ -123,6 +127,9 @@ interface SiteHeaderProps {
 }
 
 export function SiteHeader({ lang }: SiteHeaderProps) {
+  const { user, logout } = useAuthContext()
+  const router = useRouter()
+
   return (
     <header className="py-10">
       <Container>
@@ -134,7 +141,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
             <div className="hidden md:flex md:gap-x-6">
               {siteConfig.mainNav.map((item) => {
                 // Mostra os links protegidos apenas quando o usuário está logado
-                if (item.protected && session) {
+                if (item.protected && user) {
                   return (
                     <NavLink key={item.title} href={item.href}>
                       {item.title}
@@ -142,7 +149,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                   )
                 }
                 // Esconde os links não protegidos quando o usuário está logado
-                if (!item.protected && !session) {
+                if (!item.protected && !user) {
                   return (
                     <NavLink key={item.title} href={item.href}>
                       {item.title}
@@ -153,7 +160,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
               })}
             </div>
           </div>
-          {session ? (
+          {user ? (
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="inline-flex justify-center rounded-md bg-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -182,7 +189,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                   <div className="px-4 py-3">
                     <p className="text-sm">Signed in as</p>
                     <p className="truncate text-sm font-medium text-gray-900">
-                      {session.user?.email}
+                      {user?.email}
                     </p>
                   </div>
                   <div className="py-1">
@@ -191,8 +198,10 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                         <a
                           href="#"
                           className={classNames(
-                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm'
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm"
                           )}
                         >
                           Account settings
@@ -204,8 +213,10 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                         <a
                           href="#"
                           className={classNames(
-                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm'
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm"
                           )}
                         >
                           Support
@@ -215,18 +226,20 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                   </div>
                   <div className="py-1">
                     <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            onClick={() => signOut()}
-                            className={classNames(
-                              active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                              'block w-full px-4 py-2 text-left text-sm'
-                            )}
-                          >
-                            Sign out
-                          </button>
-                        )}
-                      </Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={() => logout()}
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block w-full px-4 py-2 text-left text-sm"
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
                   </div>
                 </Menu.Items>
               </Transition>
@@ -234,9 +247,9 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
           ) : (
             <div className="flex items-center gap-x-5 md:gap-x-8">
               <div className="hidden md:block">
-                <Button onClick={() => signIn()}>Sign in</Button>
+                <Button onClick={() => router.push("login")}>Sign in</Button>
               </div>
-              <Button onClick={() => signIn()} color="blue">
+              <Button onClick={() => router.push("register")} color="blue">
                 <span>
                   Get started <span className="hidden lg:inline">today</span>
                 </span>
@@ -245,7 +258,7 @@ export function SiteHeader({ lang }: SiteHeaderProps) {
                 <MobileNavigation />
               </div>
             </div>
-          )} */}
+          )}
         </nav>
       </Container>
     </header>

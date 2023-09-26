@@ -2,6 +2,8 @@ import React, { FC, ReactNode } from "react"
 
 import { ThemeProvider } from "@/components/theme-provider"
 
+import { AuthContextProvider } from "./AuthContext"
+
 interface RootProviderProps {
   children: ReactNode
 }
@@ -9,7 +11,7 @@ interface RootProviderProps {
 export const RootProvider: FC<RootProviderProps> = ({ children }) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
+      <AuthContextProvider>{children}</AuthContextProvider>
     </ThemeProvider>
   )
 }

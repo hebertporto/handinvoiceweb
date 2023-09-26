@@ -34,6 +34,16 @@ export const siteConfig = {
       href: "/dashboard",
       protected: true,
     },
+    {
+      title: "Login",
+      href: "/login",
+      protected: false,
+    },
+    {
+      title: "Register",
+      href: "/register",
+      protected: false,
+    },
   ],
   links: {
     twitter: "https://twitter.com/shadcn",

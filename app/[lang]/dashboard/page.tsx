@@ -1,20 +1,29 @@
+"use client"
+
+import { useRouter } from "next/navigation"
+import { useAuthContext } from "@/context/AuthContext"
+import { addInvoice } from "@/store/firestore/invoices"
+import { generateMockInvoice } from "@/utils/mockHelper"
+
 import { Button } from "@/components/Button"
 
-const invoices = [
-  {
-    date: "2023-09-15",
-    number: "INV-000123",
-    to: "Jhon Doe",
-    total: "$1,2000.00",
-  },
-  // More invoice...
-]
+import { InvoiceList } from "./components/InvoiceList"
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ")
-}
+export default function DashboardPage() {
+  const { user } = useAuthContext()
+  const router = useRouter()
 
-export default async function DashboardPage() {
+  if (!user) {
+    router.push("/login")
+    return null
+  }
+
+  const handleAddInvoice = () => {
+    const invoice = generateMockInvoice()
+    console.log("invoice", invoice)
+    addInvoice({ ...invoice, userId: user.uid })
+  }
+
   return (
     <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -55,124 +64,10 @@ export default async function DashboardPage() {
             >
               Add Invoice
             </Button>
+            <button onClick={handleAddInvoice}>Add Invoice 2</button>
           </div>
         </div>
-        <div className="mx-auto my-4 w-full border-y border-gray-200">
-          <div className="flex items-center space-x-4 py-4">
-            <button
-              type="button"
-              className="rounded-md bg-white p-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            >
-              All Invoces{" "}
-              <span className="ml-2 rounded-md bg-blue-100 px-2 py-1 text-sm">
-                12
-              </span>
-            </button>
-            <button
-              type="button"
-              className="rounded-md bg-white p-3 text-sm font-semibold text-gray-900 hover:bg-gray-50"
-            >
-              Pending{" "}
-              <span className="ml-2 rounded-md bg-orange-100 px-2 py-1 text-sm">
-                6
-              </span>
-            </button>
-            <button
-              type="button"
-              className="rounded-md bg-white p-3 text-sm font-semibold text-gray-900 hover:bg-gray-50"
-            >
-              Sent{" "}
-              <span className="ml-2 rounded-md bg-emerald-100 px-2 py-1 text-sm">
-                3
-              </span>
-            </button>
-            <button
-              type="button"
-              className="rounded-md bg-white p-3 text-sm font-semibold text-gray-900 hover:bg-gray-50"
-            >
-              Error{" "}
-              <span className="ml-2 rounded-md bg-rose-100 px-2 py-1 text-sm">
-                3
-              </span>
-            </button>
-          </div>
-        </div>
-        <div className="-mx-4 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
-          <table className="min-w-full divide-y divide-gray-300">
-            <thead>
-              <tr>
-                <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                  Date
-                </th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  # Number
-                </th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  To
-                </th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  Total
-                </th>
-                <th className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                  <span className="sr-only">Edit</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoices.map((invoice, invoiceIdx) => (
-                <tr key={invoice.number}>
-                  <td
-                    className={classNames(
-                      invoiceIdx === 0 ? "" : "border-t border-transparent",
-                      "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                    )}
-                  >
-                    {invoice.date}
-                  </td>
-                  <td
-                    className={classNames(
-                      invoiceIdx === 0 ? "" : "border-t border-gray-200",
-                      "px-3 py-4 text-sm text-gray-500"
-                    )}
-                  >
-                    {invoice.number}
-                  </td>
-                  <td
-                    className={classNames(
-                      invoiceIdx === 0 ? "" : "border-t border-gray-200",
-                      "px-3 py-4 text-sm text-gray-500"
-                    )}
-                  >
-                    {invoice.to}
-                  </td>
-                  <td
-                    className={classNames(
-                      invoiceIdx === 0 ? "" : "border-t border-gray-200",
-                      "px-3 py-4 text-sm text-gray-500"
-                    )}
-                  >
-                    {invoice.total}
-                  </td>
-                  <td
-                    className={classNames(
-                      invoiceIdx === 0 ? "" : "border-t border-transparent",
-                      "relative py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                    )}
-                  >
-                    <Button
-                      variant="outline"
-                      color="slate"
-                      type="button"
-                      href={"/invoice"}
-                    >
-                      Edit
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <InvoiceList userId={user.uid} />
       </div>
     </div>
   )
