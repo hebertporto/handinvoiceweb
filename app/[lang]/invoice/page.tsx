@@ -35,6 +35,8 @@ export default function InvoicePage() {
     formState: { errors },
   } = useForm<Inputs>()
 
+  const steps =["Date", "From/To", "Items", "Tax"]
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
@@ -74,8 +76,28 @@ export default function InvoicePage() {
           </div>
         </div>
 
-        <div className="mt-4 flex gap-2 bg-gray-100">
-          <div className="w-1/2 p-8">
+        <div className="mt-4 flex items-start bg-white">
+          {/* WIZARD */}
+          <div className="felx mr-8 w-2/12 flex-col space-y-2 border-t border-t-gray-400 pt-4">
+            {steps.map((menu, index) => (
+              <div key={index} className="flex w-full items-center justify-between">
+                <span className="text-gray-500">
+                  {menu}
+                </span>
+                  { index <= step - 1 && (
+                    <div className="ml-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-green-500">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    )
+                  }
+              </div>
+            ))}
+          </div>
+
+          {/* STEP BY STEP FORM */}
+          <div className="mt-4 w-5/12 bg-gray-100 p-4 pr-12 ring-1 ring-gray-400">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-6"
@@ -284,48 +306,130 @@ export default function InvoicePage() {
               )}
             </form>
           </div>
-
-          {/* Right Column - Preview */}
-          <div className="w-1/2 p-8">
-            <h2>Preview</h2>
-            <div>
-              <p>
-                <strong>Date:</strong> {watchedFields[0]}
-              </p>
-              <p>
-                <strong>Invoice Number:</strong> {watchedFields[1]}
-              </p>
-              <p>
-                <strong>From:</strong> {watchedFields[2]}
-              </p>
-              <p>
-                <strong>Bill To:</strong> {watchedFields[3]}
-              </p>
-
-              {watchedFields[4] &&
+          
+          {/* PREVIEW */}
+          <div className="w-5/12 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow ring-1 ring-gray-400">
+            <div className="-mx-4 px-4 py-8 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-8">
+              <h2 className="text-base font-semibold leading-6 text-gray-900">Invoice</h2>
+              <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
+                <div className="sm:pr-4">
+                  <dt className="inline text-gray-500">Issued on</dt>{' '}
+                  <dd className="inline text-gray-700">
+                    <time dateTime="2023-23-01">{watchedFields[0]}</time>
+                  </dd>
+                </div>
+                <div className="mt-2 sm:mt-0 sm:pl-4">
+                  <dt className="inline text-gray-500">Due on</dt>{' '}
+                  <dd className="inline text-gray-700">
+                    <time dateTime="2023-31-01">{watchedFields[0]}</time>
+                  </dd>
+                </div>
+                <div className="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4">
+                  <dt className="font-semibold text-gray-900">From</dt>
+                  <dd className="mt-2 text-gray-500">
+                    <span className="font-medium text-gray-900">{watchedFields[2]}</span>
+                    <br />
+                    7363 Cynthia Pass
+                    <br />
+                    Toronto, ON N3Y 4H8
+                  </dd>
+                </div>
+                <div className="mt-8 sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6">
+                  <dt className="font-semibold text-gray-900">To</dt>
+                  <dd className="mt-2 text-gray-500">
+                    <span className="font-medium text-gray-900">{watchedFields[3]}</span>
+                    <br />
+                    886 Walter Street
+                    <br />
+                    New York, NY 12345
+                  </dd>
+                </div>
+              </dl>
+              <table className="mt-16 w-full whitespace-nowrap text-left text-sm leading-6">
+                <colgroup>
+                  <col className="w-full" />
+                  <col />
+                  <col />
+                  <col />
+                </colgroup>
+                <thead className="border-b border-gray-200 text-gray-900">
+                  <tr>
+                    <th scope="col" className="px-0 py-3 font-semibold">
+                      Items
+                    </th>
+                    <th scope="col" className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell">
+                      Hours
+                    </th>
+                    <th scope="col" className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell">
+                      Rate
+                    </th>
+                    <th scope="col" className="py-3 pl-8 pr-0 text-right font-semibold">
+                      Price
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {watchedFields[4] &&
                 watchedFields[4].map((item, index) => (
-                  <div key={index}>
-                    <p>
-                      <strong>Description:</strong> {item.description}
-                    </p>
-                    <p>
-                      <strong>Hours:</strong> {item.hours}
-                    </p>
-                    <p>
-                      <strong>Rate Per Hour:</strong> {item.ratePerHour}
-                    </p>
-                  </div>
-                ))}
-
-              <p>
-                <strong>Tax Rate:</strong> {watchedFields[5]}
-              </p>
-              <p>
-                <strong>Terms:</strong> {watchedFields[6]}
-              </p>
-              <p>
-                <strong>Payment Details:</strong> {watchedFields[7]}
-              </p>
+                    <tr key={index} className="border-b border-gray-100">
+                      <td className="max-w-0 px-0 py-5 align-top">
+                        <div className="truncate font-medium text-gray-900">{item.description}</div>
+                        <div className="truncate text-gray-500">{item.description}</div>
+                      </td>
+                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                        {item.hours}
+                      </td>
+                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                        {item.ratePerHour}
+                      </td>
+                      <td className="py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">$2,000.00</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th scope="row" className="px-0 pb-0 pt-6 font-normal text-gray-700 sm:hidden">
+                      Subtotal
+                    </th>
+                    <th
+                      scope="row"
+                      colSpan={3}
+                      className="hidden px-0 pb-0 pt-6 text-right font-normal text-gray-700 sm:table-cell"
+                    >
+                      Subtotal
+                    </th>
+                    <td className="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums text-gray-900">$2,000.00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="pt-4 font-normal text-gray-700 sm:hidden">
+                      Tax
+                    </th>
+                    <th
+                      scope="row"
+                      colSpan={3}
+                      className="hidden pt-4 text-right font-normal text-gray-700 sm:table-cell"
+                    >
+                      Tax
+                    </th>
+                    <td className="pb-0 pl-8 pr-0 pt-4 text-right tabular-nums text-gray-900">{watchedFields[5]}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="pt-4 font-semibold text-gray-900 sm:hidden">
+                      Total
+                    </th>
+                    <th
+                      scope="row"
+                      colSpan={3}
+                      className="hidden pt-4 text-right font-semibold text-gray-900 sm:table-cell"
+                    >
+                      Total
+                    </th>
+                    <td className="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums text-gray-900">
+                      $2,000.00
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
